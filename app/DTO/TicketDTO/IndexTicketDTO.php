@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO\MovieDTO;
+namespace App\DTO\TicketDTO;
 
 use Spatie\DataTransferObject\DataTransferObject;
 
-class IndexMovieDTO extends DataTransferObject
+class IndexTicketDTO extends DataTransferObject
 {
     public int $page;
 }

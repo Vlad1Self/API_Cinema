@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
-use App\Contracts\AuthorContract;
-use App\Contracts\GenreContract;
-use App\Contracts\MovieContract;
+use App\Contracts\Author\AuthorContract;
+use App\Contracts\Genre\GenreContract;
+use App\Contracts\Movie\MovieContract;
+use App\Contracts\Ticket\TicketContract;
+use App\Repository\Author\AuthorRepository;
+use App\Repository\Genre\GenreRepository;
+use App\Repository\Movie\MovieRepository;
+use App\Repository\Ticket\TicketRepository;
 use App\Services\AuthorService;
 use App\Services\GenreService;
 use App\Services\MovieService;
@@ -17,9 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AuthorContract::class, AuthorService::class);
-        $this->app->bind(GenreContract::class, GenreService::class);
-        $this->app->bind(MovieContract::class, MovieService::class);
+        $this->app->bind(AuthorContract::class, AuthorRepository::class);
+        $this->app->bind(GenreContract::class, GenreRepository::class);
+        $this->app->bind(MovieContract::class, MovieRepository::class);
+        $this->app->bind(TicketContract::class, TicketRepository::class);
+
     }
 
     /**

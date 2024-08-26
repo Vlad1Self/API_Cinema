@@ -2,22 +2,48 @@
 
 namespace App\Services;
 
-use App\Contracts\MovieContract;
+use App\Contracts\Movie\MovieContract;
 use App\DTO\MovieDTO\IndexMovieDTO;
+use App\DTO\MovieDTO\ShowMovieDTO;
 use App\Models\Movie;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
-class MovieService implements MovieContract
+readonly class MovieService
 {
-    public function indexMovie(IndexMovieDTO $data): LengthAwarePaginator
+    public function __construct(private MovieContract $repository)
     {
-        return Movie::with(['authors', 'genres'])
-            ->paginate($data->per_page, ['*'], 'page', $data->page);
     }
 
-    public function showMovie(int $id): Model
+    public function indexMovie(IndexMovieDTO $data): LengthAwarePaginator
     {
-        return Movie::query()->findOrFail($id);
+        try {
+            return $this->repository->indexMovie($data);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function showMovie(ShowMovieDTO $data): Movie
+    {
+        try {
+            return $this->repository->showMovie($data);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function getTicketsForMovie(ShowMovieDTO $data): Collection
+    {
+        try {
+            return $this->repository->getTicketsForMovie($data);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            throw $e;
+        }
     }
 }

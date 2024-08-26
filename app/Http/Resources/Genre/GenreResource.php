@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Genre;
 
+use App\Http\Resources\MoviesForGenreResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MovieResource extends JsonResource
+class GenreResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +17,8 @@ class MovieResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'authors' => AuthorResource::collection($this->authors),
-            'genres' => GenreResource::collection($this->genres),
+            'name' => $this->name,
+            'movies' => MoviesForGenreResource::collection($this->movies),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

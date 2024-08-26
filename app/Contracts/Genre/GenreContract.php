@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Contracts\Genre;
 
 use App\DTO\GenreDTO\IndexGenreDTO;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

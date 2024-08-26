@@ -2,17 +2,30 @@
 
 namespace App\Services;
 
-use App\Contracts\AuthorContract;
+use App\Contracts\Author\AuthorContract;
 use App\DTO\AuthorDTO\IndexAuthorDTO;
 use App\Exceptions\AuthorException\IndexAuthorException;
+use App\Http\Requests\AuthorRequest\IndexAuthorRequest;
+use App\Http\Resources\Author\AuthorResource;
 use App\Models\Author;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Log;
 
-class AuthorService implements AuthorContract
+readonly class AuthorService
 {
+    public function __construct(private AuthorContract $repository)
+    {
+    }
+
     public function indexAuthor(IndexAuthorDTO $data): LengthAwarePaginator
     {
-        return Author::paginate(10, ['*'], 'page', $data->page);
+        try {
+            return $this->repository->indexAuthor($data);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

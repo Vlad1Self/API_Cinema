@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Ticket\TicketStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
+            $table->string('price');
+            $table->string('seat');
+            $table->foreignId('movie_id')->constrained('movies')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('status')->default(TicketStatusEnum::created);
             $table->timestamps();
-            $table->decimal('price');
-
-            $table->foreignId('movie_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

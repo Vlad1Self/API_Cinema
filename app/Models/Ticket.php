@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\Ticket\TicketStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class Ticket extends Model
 {
@@ -13,17 +15,24 @@ class Ticket extends Model
 
     protected $fillable = [
         'price',
-        'movie_id',
-        'user_id',
+        'seat',
+        'status',
+        'movie_id'
     ];
+
+    protected $casts = [
+        'status' => TicketStatusEnum::class
+    ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($ticket) {
+            $ticket->uuid = Str::uuid();
+        });
+    }
 
     public function movie(): BelongsTo
     {
         return $this->belongsTo(Movie::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 }

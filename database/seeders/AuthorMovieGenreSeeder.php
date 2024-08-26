@@ -18,11 +18,15 @@ class AuthorMovieGenreSeeder extends Seeder
         $movies = Movie::all();
 
         foreach ($movies as $movie) {
-            $randomAuthors = $authors->random(rand(1, 3));
-            $randomGenres = $genres->random(rand(1, 3));
+            if ($movie->authors()->count() == 0) {
+                $randomAuthors = $authors->random(rand(1, 3));
+                $movie->authors()->attach($randomAuthors->pluck('id')->toArray());
+            }
 
-            $movie->authors()->attach($randomAuthors->pluck('id')->toArray());
-            $movie->genres()->attach($randomGenres->pluck('id')->toArray());
+            if ($movie->genres()->count() == 0) {
+                $randomGenres = $genres->random(rand(1, 3));
+                $movie->genres()->attach($randomGenres->pluck('id')->toArray());
+            }
         }
     }
 }

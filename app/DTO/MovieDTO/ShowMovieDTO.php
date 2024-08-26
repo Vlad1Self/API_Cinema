@@ -4,7 +4,7 @@ namespace App\DTO\MovieDTO;
 
 use Spatie\DataTransferObject\DataTransferObject;
 
-class IndexMovieDTO extends DataTransferObject
+class ShowMovieDTO extends DataTransferObject
 {
-    public int $page;
+    public int $id;
 }

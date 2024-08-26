@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('genres')->group(function () {
-    Route::get('/', [\App\Http\Controllers\GenreController::class, 'indexGenre']);
+    Route::get('/{page}', [\App\Http\Controllers\Genre\GenreController::class, 'indexGenre']);
 });

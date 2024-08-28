@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 readonly class GenreService
 {
-    public function __construct(private GenreContract $repository)
+    public function __construct(private GenreContract $genreRepository)
     {
     }
 
     public function indexGenre(IndexGenreDTO $data): LengthAwarePaginator
     {
         try {
-            return $this->repository->indexGenre($data);
+            return $this->genreRepository->indexGenre($data);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             throw $exception;

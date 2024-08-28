@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AuthorController extends Controller
 {
-    public function __construct(private readonly AuthorService $service)
+    public function __construct(private readonly AuthorService $authorService)
     {
     }
 
@@ -20,7 +20,7 @@ class AuthorController extends Controller
         $data = new IndexAuthorDTO(['page' => $page]);
 
         try {
-            $authors = $this->service->indexAuthor($data);
+            $authors = $this->authorService->indexAuthor($data);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }

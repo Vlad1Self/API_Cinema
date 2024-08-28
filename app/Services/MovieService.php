@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Log;
 
 readonly class MovieService
 {
-    public function __construct(private MovieContract $repository)
+    public function __construct(private MovieContract $movieRepository)
     {
     }
 
     public function indexMovie(IndexMovieDTO $data): LengthAwarePaginator
     {
         try {
-            return $this->repository->indexMovie($data);
+            return $this->movieRepository->indexMovie($data);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw $e;
@@ -30,7 +30,7 @@ readonly class MovieService
     public function showMovie(ShowMovieDTO $data): Movie
     {
         try {
-            return $this->repository->showMovie($data);
+            return $this->movieRepository->showMovie($data);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw $e;

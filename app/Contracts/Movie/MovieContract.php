@@ -13,6 +13,5 @@ interface MovieContract
 {
     public function indexMovie(IndexMovieDTO $data): LengthAwarePaginator;
     public function showMovie(ShowMovieDTO $data): Movie;
-
     public function getTicketsForMovie(ShowMovieDTO $data): Collection;
 }

@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Log;
 
 readonly class AuthorService
 {
-    public function __construct(private AuthorContract $repository)
+    public function __construct(private AuthorContract $authorRepository)
     {
     }
 
     public function indexAuthor(IndexAuthorDTO $data): LengthAwarePaginator
     {
         try {
-            return $this->repository->indexAuthor($data);
+            return $this->authorRepository->indexAuthor($data);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             throw $exception;

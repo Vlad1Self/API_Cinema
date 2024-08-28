@@ -14,7 +14,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class GenreController extends Controller
 {
-    public function __construct(private readonly GenreService $service)
+    public function __construct(private readonly GenreService $genreService)
     {
     }
 
@@ -23,7 +23,7 @@ class GenreController extends Controller
         $data = new IndexGenreDTO(['page' => $page]);
 
         try {
-            $genres = $this->service->indexGenre($data);
+            $genres = $this->genreService->indexGenre($data);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }

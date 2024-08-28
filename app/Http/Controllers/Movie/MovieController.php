@@ -17,7 +17,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MovieController extends Controller
 {
-    public function __construct(private readonly MovieService $service)
+    public function __construct(private readonly MovieService $movieService)
     {
     }
 
@@ -26,7 +26,7 @@ class MovieController extends Controller
         $data = new IndexMovieDTO(['page' => $page]);
 
         try {
-            $movies = $this->service->indexMovie($data);
+            $movies = $this->movieService->indexMovie($data);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }
@@ -39,7 +39,7 @@ class MovieController extends Controller
         $data = new ShowMovieDTO(['id' => $id]);
 
         try {
-            $movie = $this->service->showMovie($data);
+            $movie = $this->movieService->showMovie($data);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }
@@ -52,7 +52,7 @@ class MovieController extends Controller
         $data = new ShowMovieDTO(['id' => $id]);
 
         try {
-            $tickets = $this->service->getTicketsForMovie($data);
+            $tickets = $this->movieService->getTicketsForMovie($data);
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }

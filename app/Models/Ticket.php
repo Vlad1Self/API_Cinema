@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class Ticket extends Model
 {
     use HasFactory;
-
     protected $fillable = [
+        'uuid',
         'price',
         'seat',
         'status',
@@ -34,5 +35,10 @@ class Ticket extends Model
     public function movie(): BelongsTo
     {
         return $this->belongsTo(Movie::class);
+    }
+
+    public function payments(): HasOne
+    {
+        return $this->hasOne(Payment::class);
     }
 }

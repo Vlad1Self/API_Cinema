@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Payment;
 
+use App\Http\Resources\PaymentMethod\PaymentMethodResource;
 use App\Http\Resources\Ticket\TicketResource;
 use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class PaymentResource extends JsonResource
             'amount' => $this->amount,
             'user' => new UserResource($this->user),
             'ticket' => new TicketResource($this->ticket),
+            'payment_method_id' => new PaymentMethodResource($this->paymentMethod),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

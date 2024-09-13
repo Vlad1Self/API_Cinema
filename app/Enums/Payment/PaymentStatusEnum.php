@@ -7,7 +7,7 @@ use BenSampo\Enum\Enum;
 final class PaymentStatusEnum extends Enum
 {
     const created = 'created';
-    const in_progress = 'in_progress';
+    const pending = 'pending';
     const success = 'success';
     const failure = 'failure';
 
@@ -15,7 +15,7 @@ final class PaymentStatusEnum extends Enum
     {
         return match ($this->value) {
             self::created => 'Платеж создан',
-            self::in_progress => 'В процессе оплаты',
+            self::pending => 'В процессе оплаты',
             self::success => 'Платеж оплачен',
             self::failure => 'Платеж отменен',
         };

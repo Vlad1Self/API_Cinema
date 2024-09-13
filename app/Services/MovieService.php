@@ -40,7 +40,7 @@ readonly class MovieService
     public function getTicketsForMovie(ShowMovieDTO $data): Collection
     {
         try {
-            return $this->repository->getTicketsForMovie($data);
+            return $this->movieRepository->getTicketsForMovie($data);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw $e;

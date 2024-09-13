@@ -25,6 +25,7 @@ class StorePaymentRequest extends FormRequest
         return [
             'user_id' => ['required', 'integer' ,'exists:users,id'],
             'ticket_id' => ['required', 'integer' ,'exists:tickets,id'],
+            'payment_method_id' => ['required', 'integer' ,'exists:payment_methods,id'],
         ];
     }
 

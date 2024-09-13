@@ -16,9 +16,13 @@ return new class extends Migration
             $table->id();
             $table->uuid();
             $table->foreignId('user_id');
-            $table->foreignId('ticket_id');
+            $table->foreignId('ticket_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('status')->default(PaymentStatusEnum::created);
             $table->string('amount');
+
+            $table->morphs('payable');
+            $table->string('driver_payment_id')->nullable();
+            $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods');
             $table->timestamps();
         });
     }

@@ -7,9 +7,9 @@ use BenSampo\Enum\Enum;
 final class TicketStatusEnum extends Enum
 {
     const created = 'created';
-
     const processing = 'processing';
     const paid = 'paid';
+    const cancelled = 'cancelled';
 
     public function label(): string
     {
@@ -17,6 +17,7 @@ final class TicketStatusEnum extends Enum
             self::created => 'Свободный билет',
             self::processing => 'В процессе оплаты',
             self::paid => 'Оплачен',
+            self::cancelled => 'Отменен',
         };
     }
 }

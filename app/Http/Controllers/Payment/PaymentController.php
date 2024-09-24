@@ -35,7 +35,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     private TicketService $ticketService;
     private PaymentMethodService $paymentMethodService;
 
-
     public function __construct(PaymentService $paymentService, TicketService $ticketService, PaymentMethodService $paymentMethodService, PaymentDriverFactory $paymentDriverFactory)
     {
         $this->paymentService = $paymentService;
@@ -78,7 +77,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
         try {
             $payment = $this->paymentService->processPayment($data);
 
-            $paymentMethod = $payment->paymentMethod;
+            $paymentMethod = $payment->paymentMethodService;
 
             $driver = $this->paymentMethodService->getDriver($paymentMethod->driver);
 

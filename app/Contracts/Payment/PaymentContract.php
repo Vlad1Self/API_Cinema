@@ -17,12 +17,9 @@ interface PaymentContract
 {
     public function indexPayment(IndexPaymentDTO $data): LengthAwarePaginator;
     public function showPayment(ShowPaymentDTO $data): Payment;
-
     public function processPayment(ShowPaymentDTO $data): Payment;
     public function storePayment(StorePaymentDTO $data): Payment;
-
     public function updatePaymentMethod(UpdatePaymentMethodDTO $data): Payment;
-
     public function updatePaymentStatus(UpdatePaymentStatusDTO $data): Payment;
 
 }

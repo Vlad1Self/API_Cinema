@@ -21,13 +21,18 @@ class StripeController extends Controller
     public function callback(Request $request): JsonResponse
     {
         Stripe::setApiKey(config()->get('services.stripe.secret_key'));
-
+        Log::info($request->getContent());
+        Log::info($request->header('stripe-signature'));
+        Log::info(config()->get('services.stripe.public_key'));
+        Log::info(config()->get('services.stripe.secret_key'));
+        Log::info(config()->get('services.stripe.webhook_secret'));
         try {
             $event = Webhook::constructEvent(
                 $request->getContent(),
                 $request->header('stripe-signature'),
                 config()->get('services.stripe.webhook_secret')
             );
+
         } catch(SignatureVerificationException|UnexpectedValueException $e) {
             Log::error($e->getMessage());
             return response()->json();

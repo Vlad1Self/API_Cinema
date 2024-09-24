@@ -58,5 +58,14 @@ class AppServiceProvider extends ServiceProvider
             PaymentFailure::class,
             ChangePaymentStatus::class,
         );
+
+        $this->registerSocialite();
+    }
+
+    private function registerSocialite(): void
+    {
+        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
+            $event->extendSocialite('vkontakte', \SocialiteProviders\VKontakte\Provider::class);
+        });
     }
 }

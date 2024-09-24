@@ -9,7 +9,9 @@
         "bensampo/laravel-enum": "^6.11",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
+        "socialiteproviders/vkontakte": "^5.0",
         "spatie/data-transfer-object": "^3.9",
         "stripe/stripe-php": "^15.9"
     },

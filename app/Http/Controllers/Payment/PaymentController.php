@@ -35,13 +35,11 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     private PaymentService $paymentService;
     private TicketService $ticketService;
     private PaymentMethodService $paymentMethodService;
-    private StripeService $stripeService;
 
-    public function __construct(PaymentService $paymentService, TicketService $ticketService, StripeService $stripeService, PaymentMethodService $paymentMethodService)
+    public function __construct(PaymentService $paymentService, TicketService $ticketService, PaymentMethodService $paymentMethodService)
     {
         $this->paymentService = $paymentService;
         $this->ticketService = $ticketService;
-        $this->stripeService = $stripeService;
         $this->paymentMethodService = $paymentMethodService;
     }
 

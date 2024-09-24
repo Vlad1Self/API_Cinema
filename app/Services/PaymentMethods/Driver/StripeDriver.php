@@ -24,7 +24,7 @@ class StripeDriver extends PaymentDriver
                 'quantity' => 1,
                 'price_data' => [
                     'unit_amount' => $payment->amount * 100,
-                    'currency' => 'rub',
+                    'currency' => 'usd',
                     'product_data' => [
                         'name' => ucfirst($payment->payable_type) . ' for site ' . Env::get('APP_NAME'),
                     ]

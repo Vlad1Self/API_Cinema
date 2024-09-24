@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Payment;
 
-use App\DTO\PaymentDTO\ChangePaymentStatusDTO;
+use App\DTO\PaymentDTO\UpdatePaymentStatusDTO;
+use App\DTO\PaymentDTO\SuccessPaymentDTO;
 use App\DTO\PaymentDTO\IndexPaymentDTO;
 use App\DTO\PaymentDTO\ShowPaymentDTO;
 use App\DTO\PaymentDTO\StorePaymentDTO;
 use App\DTO\PaymentMethodDTO\ShowPaymentMethodDTO;
 use App\DTO\PaymentMethodDTO\UpdatePaymentMethodDTO;
 use App\DTO\TicketDTO\ShowTicketDTO;
-use App\Enums\Payment\PaymentStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CancelPaymentRequest;
 use App\Http\Requests\Payment\CompletePaymentRequest;
@@ -23,7 +23,6 @@ use App\Models\Ticket;
 use App\Repository\PaymentMethod\Factory\PaymentDriverFactory;
 use App\Services\PaymentMethods\PaymentMethodService;
 use App\Services\PaymentService;
-use App\Services\StripeService;
 use App\Services\TicketService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -36,7 +35,8 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     private TicketService $ticketService;
     private PaymentMethodService $paymentMethodService;
 
-    public function __construct(PaymentService $paymentService, TicketService $ticketService, PaymentMethodService $paymentMethodService)
+
+    public function __construct(PaymentService $paymentService, TicketService $ticketService, PaymentMethodService $paymentMethodService, PaymentDriverFactory $paymentDriverFactory)
     {
         $this->paymentService = $paymentService;
         $this->ticketService = $ticketService;
@@ -179,50 +179,6 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
         return $this->paymentService->storePayment($data_for_store);
     }
 
-    public function redirect(string $payment_uuid): JsonResponse
-    {
-        try {
-            $payment = $this->paymentService->showPayment(new ShowPaymentDTO(['payment_uuid' => $payment_uuid]));
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 404);
-        }
 
-        try {
-            $session = $this->stripeService->createSession($payment);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 404);
-        }
-
-        try {
-            $payment = $this->paymentService->changePaymentStatus(new ChangePaymentStatusDTO([
-                'payment' => $payment,
-                'status' => PaymentStatusEnum::in_progress]));
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 404);
-        }
-
-        return response()->json(['url' => $session->url], 200);
-    }
-
-    public function success(string $payment_uuid): JsonResponse
-    {
-        return response()->json(['message' => 'Payment ' . $payment_uuid . ' success'], 200);
-    }
-
-    public function failure(string $payment_uuid): JsonResponse
-    {
-        return response()->json(['message' => 'Payment ' . $payment_uuid . ' failure'], 200);
-    }
-
-    public function callback(Request $request): JsonResponse
-    {
-        try {
-            $this->stripeService->callback($request);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 404);
-        }
-
-        return response()->json(['message' => ''], 200);
-    }
 
 }

@@ -30,4 +30,6 @@ class TicketRepository implements TicketContract
     {
         return Ticket::query()->findOrFail($data->ticket_id);
     }
+
+
 }

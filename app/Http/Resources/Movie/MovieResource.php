@@ -7,6 +7,18 @@ use App\Http\Resources\Genre\GenreResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @OA\Schema(
+ *     schema="MovieResource",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer"),
+ *     @OA\Property(property="title", type="string"),
+ *     @OA\Property(property="description", type="string"),
+ *     @OA\Property(property="release_date", type="string", format="date"),
+ *     @OA\Property(property="duration", type="integer"),
+ *     @OA\Property(property="rating", type="number", format="float")
+ * )
+ */
 class MovieResource extends JsonResource
 {
     /**

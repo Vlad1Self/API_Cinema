@@ -15,15 +15,13 @@ use App\Repository\Movie\MovieRepository;
 use App\Repository\Payment\PaymentRepository;
 use App\Repository\PaymentMethod\PaymentMethodRepository;
 use App\Repository\Ticket\TicketRepository;
-use App\Services\AuthorService;
 use App\Services\Events\PaymentFailure;
 use App\Services\Events\PaymentSuccess;
-use App\Services\GenreService;
 use App\Services\Listeners\ChangePaymentStatus;
-use App\Services\MovieService;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -59,11 +57,6 @@ class AppServiceProvider extends ServiceProvider
             ChangePaymentStatus::class,
         );
 
-        $this->registerSocialite();
-    }
-
-    private function registerSocialite(): void
-    {
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('vkontakte', \SocialiteProviders\VKontakte\Provider::class);
         });

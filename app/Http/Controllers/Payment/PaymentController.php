@@ -77,7 +77,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
         try {
             $payment = $this->paymentService->processPayment($data);
 
-            $paymentMethod = $payment->paymentMethodService;
+            $paymentMethod = $payment->paymentMethod;
 
             $driver = $this->paymentMethodService->getDriver($paymentMethod->driver);
 
